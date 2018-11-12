@@ -137,8 +137,11 @@ css三种引入方式优缺点
 #### margin/padding
 
 1个值上下左右
+
 2个值上下、左右
+
 3个值上、左右、下
+
 4个值上、右、下、左
 
 #### border：
@@ -155,19 +158,27 @@ border-bottom: 10px solid green;
 #### 盒子模型
 
 width             宽
+
 height            高
+
 margin           外边距
+
 padding          内边距
+
 border            边框
 
 盒模型总宽度：margin-right/left、border-right/left、padding-right/left、width
+
 盒模型总高度：margin-top/bottom、border-top/bottom、padding-top/bottom、width
 
 ### 显示属性
 
 float: none|left|right;
+
 float先浮后动：漂浮在上面的图层，当浏览器宽度不够，就会在下一行，水槽浮动原理
+
 所有元素都可以浮动
+
 没有特殊设置可以和文字一样大小的边框
 
 ### CSS选择器
