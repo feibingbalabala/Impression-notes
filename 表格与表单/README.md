@@ -85,9 +85,9 @@ method：表单提交数据的形式get通常用于获取数据、post通常用�
 
 ```html
 <select>
-  <option>beijing</option>
-  <option>beijing</option>
-  <option>beijing</option>
+  <option>北京</option>
+  <option>上海</option>
+  <option>广州</option>
 </select>
 ```
 
@@ -112,7 +112,7 @@ method：表单提交数据的形式get通常用于获取数据、post通常用�
 隐藏域(用于提交页面用户没有书写的数据)
 
 ```html
-<input type="hidden"><input type="hidden">
+<input type="hidden">
 ```
 
 按钮
@@ -169,7 +169,9 @@ checked：
 selected：
 
 ```html
-<option selected>123</option>
+<select>
+  <option selected>123</option>
+</select>
 ```
 
 ## hack
