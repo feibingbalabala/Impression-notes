@@ -99,13 +99,15 @@ var a = {
 
 逻辑操作符：||（或） &&（与） ！（非）！true是false！false是true
 
-递增操作符：++，a=+1
+递增操作符：++，a = a+1
 
-递减操作符：--，b=b-1
+递减操作符：--，b = b-1
 
-c=a++  +b :c=a+b,a++,c=6,a=4;先做别人的东西
+a = 3; b = 3
 
-c=++a  +b：a++，c=a+b，c=7，a=4；先做自己的，在做别人的
+c=a++  +b :c=a+b,a++,c=6, a=4;先做别人的东西
+
+c=++a  +b：a++，c=a+b，c=7, a=4；先做自己的，在做别人的
 
 ## 值判断
 
@@ -181,12 +183,12 @@ Boolean(2) == true // true
 
 字符串->数字
 
-1. Number(),0xf十六进制，console.log(Number（）)
-2. parseInt（）整数，从左往右取数字，到第一个非数字console.log(parseInt（）)
-3. parseFloat（）小数，取到第二个小数点之前的数console.log(parseFloat（）)
-4. toFixed（）保留几位小数 a=123.456;a.toFixed（2）// 保留两位小数，四色五入
+1. Number()，0xf十六进制，console.log(Number())
+2. parseInt()整数，从左往右取数字，到第一个非数字console.log(parseInt())
+3. parseFloat()小数，取到第二个小数点之前的数console.log(parseFloat())
+4. toFixed()保留几位小数 a=123.456;a.toFixed(2)// 保留两位小数，四色五入
 
 数字->字符串
 
-1. a.toString（2）括号内代表进制；
-2. string（a）
+1. a.toString(2)括号内代表进制；
+2. string(a)
