@@ -23,3 +23,5 @@
 [css3属性](./note/CSS3属性/README.md)
 
 [js初探](./note/JS初探/README.md)
+
+[js初探2](./note/JS初探2/README.md)
