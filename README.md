@@ -27,3 +27,5 @@
 [js初探2](./note/JS初探2/README.md)
 
 [事件与简单页面交互](./note/事件与简单页面交互/README.md)
+
+[if语句和循环语句](./note/if语句和循环语句/README.md)
