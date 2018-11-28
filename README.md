@@ -31,3 +31,5 @@
 [if语句和循环语句](./note/if语句和循环语句/README.md)
 
 [this作用域](./note/this作用域/README.md)
+
+[tab切换与函数调用](./note/tab切换与函数调用/README.md)
