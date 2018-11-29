@@ -33,3 +33,5 @@
 [this作用域](./note/this作用域/README.md)
 
 [tab切换与函数调用](./note/tab切换与函数调用/README.md)
+
+[动画效果](./note/动画效果/README.md)
