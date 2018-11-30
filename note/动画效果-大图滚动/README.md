@@ -51,6 +51,30 @@ clientWidth | clinentHeight
 不含边框元素的自身高度、宽度
 
 ```js
+// step1:分析效果，搭建结构和样式；
+// step2:刷新页面，直接跳转到第二张图片；
+//  outer.scrollLeft = 200;
+// step3:点击跳转下一张；
+//  outer.onclick = function(){outer.scrollLeft = 200;}
+// step4:点击视口，滚动条向后滚动5px；
+//  outer.scrollLeft += 5;
+// step5:添加计时器，让图片滚动；
+// step6:滚动到第二张，停止计时器；
+// step7:常量改变量；
+// step8:点击视口，滚动到第二张；
+// step9:点击多次，计时器重叠，要清除(防叠加)；
+// step10:单向运动要改变成双向运动；(获取当前位置，与目标进行对比，计算出最终要达到的位置，让滚动条到该位置)；
+// step11:封装函数，改变点击事件的书写方式；
+// step12:获取距离，计算速度/步长；
+// setp13:target修改为参数；
+// setp14:添加图片索引值，点击视口之后，跳到下一张；
+// step15:将点击事件更换成计时器；
+// step16:添加序号：
+// 16.1通过循环、绑定事件’移动到点击图片序号位置;
+// 16.2清除计时器timescr;
+// 16.3重新启动计时器timescr；
+// step17:封装循环滚动函数scroll；
+// step18:添加左右按钮功能。
 var speed = 5;
 var timer = setInterval(function() {
   main.scrollLeft += speed;
