@@ -43,7 +43,9 @@
 | onsubmit | 提交按钮被点击 |
 | onunload | 用户退出页面 |
 
-### 绑定事件
+### 绑定事件(on、addEventListener)
+
+on事件
 
 ```js
 // 方法1
@@ -55,6 +57,89 @@ btn.onclick = sum;
 function sum(){
   ...
 }
+```
+
+addEventListener事件
+
+addEventListener("事件名称",句柄、匿名函数，false/true)
+
+```js
+show () {
+  ...
+};
+btn.addEventListener('click', show, false);
+// 移除事件
+ID.removeEventListener('click', show，false);
+// 要和绑定事件的（true或者false）一样！
+// 绑定事件尽量用句柄，方便移除，匿名函数无法移除
+```
+
+多个事件就绑定多次，false是事件冒泡，true事件捕获
+
+事件流：从页面中接受事件的顺序
+
+捕获阶段->获取标签->冒泡事件
+
+addEventListener ie9+
+
+ie不支持捕获事件
+
+IE中的绑定事件ie8和一下
+
+变量（元素）.attachEvent("on事件名称"+句柄)；
+
+id,attachEvent("onclick"+show);
+
+id,attachEvent("onclick"+test）;
+
+后面的先执行(ie没有捕获，只有冒泡)
+
+IE中的移除
+
+变量名.detachEvent("onclick",test)
+
+绑定事件的兼容
+
+```js
+function addEventHandle(ele.eventName,eventHandle){
+  if(document.addEventListener){
+    ele.addEventListener(eventName, eventHandle ,false);
+  }else if(documen.attachEvent) {
+    ele.attachEvent("on"+eventName +,eventHandle )
+  }else {
+    ele["on" + eventHandle] = eventName;
+  }
+}
+```
+
+阻止默认事件（放在事件内部）
+
+```js
+// 阻止冒泡
+if(event.Propagation){
+  event.stopPropagation(); // chrome
+}else {
+  window.event.cancelBubble = true; // ie
+}
+```
+
+## 事件委托
+
+给元素外层绑定后，找到这个元素触发事件（多用于用dom有做删减操作）
+
+```html
+<ul id='wrap'>
+  <li>inner</li>
+</ul>
+<script type='text/javascript'>
+  var wrap = docuement.getElementById('wrap');
+  wrap.onclick = function (event) {
+    var event = event || window.event;
+    if (event.target.tagName === 'LI') {
+      console.log(event.target.innertHTML);
+    };
+  };
+</script>
 ```
 
 ## 申明一个函数
