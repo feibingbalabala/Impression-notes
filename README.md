@@ -45,3 +45,7 @@
 [计时器](./note/计时器/README.md)
 
 [Math方法](./note/Math方法/README.md)
+
+[DOM对象](./note/DOM对象/README.md)
+
+[jQuery](./note/jQuery/README.md)
