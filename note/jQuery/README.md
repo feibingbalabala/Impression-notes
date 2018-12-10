@@ -59,3 +59,58 @@ $(".btn").off("click");
 delegate()方法'很划算'用来处理性能和响应动态添加元素。
 
 新的on()方法主要是实现bind()、live()甚至delegate()的功能。
+
+## jq的方法
+
+css函数操作
+
+|CSS 属性|描述|
+|-|-|
+|css()|设置或返回匹配元素的样式属性。|
+|height()|设置或返回匹配元素的高度。|
+|offset()|返回第一个匹配元素相对于文档的位置。|
+|offsetParent()|返回最近的定位祖先元素。|
+|position()|返回第一个匹配元素相对于父元素的位置。|
+|scrollLeft()|设置或返回匹配元素相对滚动条左侧的偏移。|
+|scrollTop()|设置或返回匹配元素相对滚动条顶部的偏移。|
+|width()|设置或返回匹配元素的宽度。|
+
+属性操作
+
+|方法|描述|
+|-|-|
+|addClass()|向匹配的元素添加指定的类名。|
+|attr()|设置或返回匹配元素的属性和值。|
+|hasClass()|检查匹配的元素是否拥有指定的类。|
+|html()|设置或返回匹配的元素集合中的 HTML 内容。|
+|removeAttr()|从所有匹配的元素中移除指定的属性。|
+|removeClass()|从所有匹配的元素中删除全部或者指定的类。|
+|toggleClass()|从匹配的元素中添加或删除一个类。|
+|val()|设置或返回匹配元素的值。|
+
+.val() .html() .text() .attractive() .removeAttr()  .prop()  .removeProp()
+
+### attr与prop的区别：
+
+1、property记录的值会按照用户事实更新，而attribute记录都是初始值
+2、property是DOM节点上的属性，attr是标签上的属性
+3、推荐property只能操作布尔值的属性
+
+### DOM操作
+
+增
+
+creatElement/creatTextNode
+
+appendChild/insertbefore
+
+删
+removechild
+
+替换
+
+replaceChild
+
+查
+
+get
