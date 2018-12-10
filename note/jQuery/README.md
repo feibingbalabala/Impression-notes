@@ -93,7 +93,9 @@ css函数操作
 ### attr与prop的区别：
 
 1、property记录的值会按照用户事实更新，而attribute记录都是初始值
+
 2、property是DOM节点上的属性，attr是标签上的属性
+
 3、推荐property只能操作布尔值的属性
 
 ### DOM操作
