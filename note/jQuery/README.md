@@ -98,7 +98,55 @@ css函数操作
 
 3、推荐property只能操作布尔值的属性
 
-### DOM操作
+## jQ常见操作
+
+scrollTop(): 修改滚动的高度（通常和scrillHeight配合使用）
+
+addClass(): 添加class类名（添加多个类名.addClass('test clearfix')）
+
+removeClass(): 删除class类名
+
+toggleClass(): 有就删除，没有就添加类名
+
+append(): 添加结点（.append('&lt;div&gt;&lt;/div&gt;')）写法2：$('&lt;div&gt;&lt;/div&gt;').appendTo('.btn')
+
+after(): 插入兄弟结点（afterTo）
+
+eq(): 相等判断多用于数组index
+
+hasClass(): 是否有这个类名
+
+find(): 查找某个标签或者类名、id名
+
+next(): 下一个结点
+
+parents(): 所有父亲结点
+
+children(): 所有子结点
+
+siblings(): 兄弟结点
+
+jQ对象转换原生对象（用数组形式）
+
+原生与jQ不能混用，原生对象转换为jQ对象（$()）
+
+## 动画
+
+show(): 高度和透明度的变化
+
+fadeIn(): 透明->不透明（fadeOut）
+
+slideDown(): 高度变化从上到下
+
+animate(): 动画(animate({'margin-top': '0px'}))，不能用于背景色的变化
+
+stop(): 使用动画最需要注意的清除动画
+
+stop(true): 停止当前动画（动画队列中的动画会继续）
+
+stop(true, true)：停止当前所有动画，直接到达终点位置
+
+## DOM操作
 
 增
 
@@ -112,7 +160,3 @@ removechild
 替换
 
 replaceChild
-
-查
-
-get
