@@ -48,4 +48,6 @@
 
 [DOM对象](./note/DOM对象/README.md)
 
+[数组](./note/数组/README.md)
+
 [jQuery](./note/jQuery/README.md)
