@@ -102,3 +102,123 @@ document.write(str.search(/w3school/i))。忽略大小写|
 |toSource()|代表对象的源代码。||
 |toString()|返回字符串。|stringObject.toString()|
 |valueOf()|返回某个字符串对象的原始值。|stringObject.valueOf()|
+
+## object对象
+
+JavaScript 提供多个内建对象，比如 String、Date、Array 等等。
+
+对象只是带有属性和方法的特殊数据类型。
+
+创建新对象有两种不同的方法：
+
+1. 定义并创建对象的实例
+2. 使用函数来定义对象，然后创建新的对象实例
+
+```js
+// 定义并创建对象的实例
+let person = new Object();
+person.firstname = "Bill";
+person.lastname = "Gates";
+person.age = 56;
+person.eyecolor = "blue";
+// 使用函数来定义对象，然后创建新的对象实例
+function person(firstname,lastname,age,eyecolor)
+{
+  this.firstname = firstname;
+  this.lastname = lastname;
+  this.age = age;
+  this.eyecolor = eyecolor;
+};
+var myFather = new person("Bill", "Gates", 56, "blue");
+
+let obj = {
+  name: '',
+  action: function () {
+    ...
+  }
+}
+// 访问对象的属性
+obj.name
+// 访问对象的方法
+obj.action()
+```
+
+### 循环取对象中的值
+
+JavaScript for...in 语句循环遍历对象的属性。
+
+```js
+var person = {fname: "Bill", lname: "Gates", age: 56};
+
+for (x in person) {
+  txt = txt + person[x];
+}
+```
+
+### 对象属性的删除
+
+delete运算符可以删除对象中的属性。这里先讲一下delete运算符的内容。
+
+```js
+var o = {x: 1, y: 2};
+// 删除x属性
+delete o.x;
+```
+
+### 检测对象的属性属否存在
+
+要判断某一个属性是否存在于某一个对象中。可以通过in运算符，hasOwnProperty()方法或是propertylsEnumerable()方法来进行判断。
+
+hasOwnProperty方法只能测试当前属性是不是对象的自有属性。
+
+propertyIsEnumerable()方法。只有当当前的属性是自有属性，并且是可枚举(enumerable属性为true)的的时候，这一方法才会返回true。
+
+```js
+// in运算符
+var point = {x: 1};
+"x" in point; //这一个表达式最后返回的将会是true。
+"toString" in point; //由于toString是继承方法，所以也是返回true.
+"z" in point; //这一表达式最后返回false，因为point对象中没有z属性.
+
+// hasOwnProperty()方法
+var o = {x: 1};
+o.hasOwnProperty("x"); //true：o有这一属性，
+o.hasOwnProperty("z"); //false;
+o.hasOwnProperty("toString"); //false
+
+// propertyIsEnumerable()方法
+o.propertyIsEnumerable("x"); // true
+o.propertyIsEnumerable("z"); // false
+o.propertyIsEnumerable("toString"); // false。继承属性不可枚举
+```
+
+当前的js一般的属性都是有4中属性。分别是：数值属性value，可读属性writable，可枚举属性enumerable，和可配置属性configurable。但是由于对象中存在一类特别的属性存取器属性，所以对于存取器属性的值实际上是有点不同的，他有自己的特别的属性特性包括，读取（get），写入（set），可枚举和可配置。为了实现这一对象属性的描述，js中定义了一个属性描述符对象。并且可以通过Object.getOwnPropertyDescriptor()方法来获取某个对象中的特定属性的描述符。当然当前函数只能获取对象自有属性的描述，如果要获取继承属性的描述符的话，需要使用Object.getPrototypeOf();
+
+```js
+var person = {
+    name:'jiang',
+    age: '18',
+    sex: 'boy'
+}
+
+Object.defineProperty(person,'age',{
+  enumerable:true, //可以被枚举
+});
+Object.defineProperty(person,'sex',{
+  enumerable:false, //可以被枚举
+})
+```
+
+当我们在定义一个对元素的属性的时候，我们要注意上面两个方法在某些情况之下是会报错误的，情况如下
+
+对象是不可扩展的，所以我们只能对原有的自有属性进行编辑，但是不可以添加新的属性。
+
+如果属性是不可配置的，则不可以修改他的可配置性和可枚举性。
+
+存储器属性是不可配置的，则不可以修改他的setter和getter属性，并且不可以改成数据属性。
+
+数据属性不可配置则不能修改为存储器属性。
+
+数据属性是不可配置情况下，其可写属性不可改false为true，但是可以修改true为false。
+
+如果数据属性是不可配置不可写，不能修改其值，但是可配置不可写，则可以修改。
