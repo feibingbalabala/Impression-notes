@@ -21,7 +21,7 @@
 
 3、修饰标签
 
-em i  （倾斜） 
+em i  （倾斜）
 
 strong b（加粗）
 
@@ -212,7 +212,7 @@ image下方有默认3px的BUG：
 
 显示属性：float overflow position z-index
 
-自身属性：margin,padding,boeder,width,height
+自身属性：margin,padding,border,width,height
 
 文本属性：text font background
 
