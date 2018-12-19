@@ -53,3 +53,5 @@
 [jQuery](./note/jQuery/README.md)
 
 [正则表达式](./note/正则表达式/README.md)
+
+[ajax](./note/AJAX/README.md)
