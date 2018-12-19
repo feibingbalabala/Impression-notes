@@ -76,6 +76,8 @@ xhr.send(null)
 let val = 'data'
 var xhr2 = new XMLHttpRequest();
 xhr.open('post', url, true);
+// setRequestHeader(header,value)
+// 向请求添加 HTTP 头。header: 规定头的名称，value: 规定头的值
 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 xhr.send('keyword=' + val)
 ```
