@@ -59,3 +59,5 @@
 [JSON、XML与AJAX](./note/JSON、XML与AJAX/README.md)
 
 [面向对象](./note/面向对象/README.md)
+
+[原型链](./note/原型链/README.md)
