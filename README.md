@@ -50,6 +50,8 @@
 
 [数组、字符串、对象](./note/数组、字符串、对象/README.md)
 
+[移动端事件](./note/移动端事件/README.md)
+
 [jQuery](./note/jQuery/README.md)
 
 [正则表达式](./note/正则表达式/README.md)
