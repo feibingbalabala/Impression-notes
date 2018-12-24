@@ -42,6 +42,8 @@
 
 [动画效果-拖拽元素](./note/动画效果-拖拽元素/README.md)
 
+[懒加载和预加载](./note/懒加载和预加载/README.md)
+
 [计时器](./note/计时器/README.md)
 
 [Math方法](./note/Math方法/README.md)
