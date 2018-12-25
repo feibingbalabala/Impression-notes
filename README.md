@@ -65,3 +65,5 @@
 [面向对象](./note/面向对象/README.md)
 
 [原型链](./note/原型链/README.md)
+
+[本地存储](./note/本地存储/README.md)
