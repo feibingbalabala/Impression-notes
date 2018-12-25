@@ -169,7 +169,7 @@ border            边框
 
 盒模型总宽度：margin-right/left、border-right/left、padding-right/left、width
 
-盒模型总高度：margin-top/bottom、border-top/bottom、padding-top/bottom、width
+盒模型总高度：margin-top/bottom、border-top/bottom、padding-top/bottom、height
 
 ### 显示属性
 
