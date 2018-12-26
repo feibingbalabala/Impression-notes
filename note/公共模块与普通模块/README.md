@@ -78,7 +78,61 @@ ID名为wrap中的p标签样式选择器志节使用空格分隔开
 | :----: | :----:  | :----: | :----:|
 | 0 | 0 | 0 | 0 |
 
+## 定位属性
+
+|属性|描述|值|
+|-|-|-|
+|position|规定元素的定位类型。|absolute:生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。fixed:生成绝对定位的元素，相对于浏览器窗口进行定位。元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。relative:生成相对定位的元素，相对于其正常位置进行定位。static:默认值。没有定位，元素出现在正常的流中（忽略 top, bottom, left, right 或者 z-index 声明）。|
+
+## 边框属性（Border 和 Outline）
+
+|属性|描述|值|
+|-|-|-|
+|border|在一个声明中设置所有的边框属性。|一个值:上右下左。两个值:上下 左右。三个值:上 左右 下。四个值:上 右 下 左。|
+|outline|在一个声明中设置所有的轮廓属性。|invert none medium|
+
+## Box 属性
+
+|属性|描述|值|
+|-|-|-|
+|overflow|规定当内容溢出元素框时发生的事情。||
+|overflow-x|如果内容溢出了元素内容区域，是否对内容的左/右边缘进行裁剪。|visible:不裁剪内容，可能会显示在内容框之外。hidden:裁剪内容 - 不提供滚动机制。scroll:裁剪内容 - 提供滚动机制。auto:如果溢出框，则应该提供滚动机制。|
+|overflow-y|如果内容溢出了元素内容区域，是否对内容的上/下边缘进行裁剪。||
+
+## 背景属性（Background）
+
+|属性|描述|值|
+|-|-|-|
+|background|在一个声明中设置所有的背景属性。|background: #00FF00 url(bgimage.gif) no-repeat fixed top;|
+|background-attachment|设置背景图像是否固定或者随着页面的其余部分滚动。|scroll:默认值。背景图像会随着页面其余部分的滚动而移动。fixed:当页面的其余部分滚动时，背景图像不会移动。inherit:从父元素继承 background-attachment 属性的设置。|
+|background-color|设置元素的背景颜色。|transparent:背景颜色为透明。可以是颜色值为颜色名称的背景颜色（比如 red）。颜色值为十六进制值的背景颜色（比如 #ff0000）。颜色值为 rgb 代码的背景颜色（比如 rgb(255,0,0)）。inherit：父元素继承 background-color 属性的设置。|
+|background-image|设置元素的背景图像。|url('URL'):指向图像的路径。none:默认值。不显示背景图像。inherit:从父元素继承 background-image 属性的设置。|
+|background-position|设置背景图像的开始位置。|top,left,right,bottom,center。x% y%。px px。|
+|background-repeat|设置是否及如何重复背景图像。|repeat:默认。背景图像将在垂直方向和水平方向重复。repeat-x:背景图像将在水平方向重复。repeat-y:背景图像将在垂直方向重复。no-repeat:背景图像将仅显示一次。inherit|
+|background-clip|规定背景的绘制区域。|border-box:背景被裁剪到边框盒。padding-box:背景被裁剪到内边距框。content-box:	背景被裁剪到内容框。|
+|background-origin|规定背景图片的定位区域。|padding-box:背景图像相对于内边距框来定位。border-box:背景图像相对于边框盒来定位。content-box:背景图像相对于内容框来定位。|
+|background-size|规定背景图片的尺寸。|cover:把背景图像扩展至足够大，以使背景图像完全覆盖背景区域。背景图像的某些部分也许无法显示在背景定位区域中。contain:把图像图像扩展至最大尺寸，以使其宽度和高度完全适应内容区域。length:设置背景图像的高度和宽度。第一个值设置宽度，第二个值设置高度。如果只设置一个值，则第二个值会被设置为 "auto"。|
+
+background的填充范围border + padding + content（填充起始位置：padding的左上角，背景图不会放在内容区里面，放到padding里）
+
+background-position:center center;  水平垂直居中
+
+background-repeat: no-repeat; 不重叠 | repeat-x  在X轴重复
+
+缩写background：颜色 url（地址）no-repeat  center center ；repeat和center可以换位置
+
+background-attachment:背景图片滚动方式scroll默认模式 | fixed随着滚动条滚动
+
+单行文本居中 line-height：设置与模块高度相同就可以让文本居中
+
 ## 字体
+
+|属性|描述|值|
+|-|-|-|
+|font|在一个声明中设置所有字体属性。|font:italic bold 12px/20px arial,sans-serif;|
+|font-family|规定文本的字体系列。|font-family:"Times New Roman",Georgia,Serif;|
+|font-size|规定文本的字体尺寸。|可以是像素或者百分比|
+|font-style||normal:默认值。浏览器显示一个标准的字体样式。italic:浏览器会显示一个斜体的字体样式。oblique:	浏览器会显示一个倾斜的字体样式。|
 
 在设置字体的时候，英文字体写在前面，中文字体写在后面
 
@@ -97,20 +151,6 @@ text-decoration: underline  下划线
 text-indent: 2em首行缩进，
 
 text-align:center;(center,center)
-
-## 背景色
-
-background的填充范围border + padding + content（填充起始位置：padding的左上角，背景图不会放在内容区里面，放到padding里）
-
-background-position:center center;  水平垂直居中
-
-background-repeat: no-repeat; 不重叠 | repeat-x  在X轴重复
-
-缩写background：颜色 url（地址）no-repeat  center center ；repeat和center可以换位置
-
-background-attachment:背景图片滚动方式scroll默认模式 | fixed随着滚动条滚动
-
-单行文本居中 line-height：设置与模块高度相同就可以让文本居中
 
 ## 普通模块
 
