@@ -69,3 +69,5 @@
 [本地存储](./note/本地存储/README.md)
 
 [视频音频](./note/视频音频/README.md)
+
+[浅谈页面优化](./note/浅谈页面优化/README.md)
