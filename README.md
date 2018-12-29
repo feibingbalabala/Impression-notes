@@ -71,3 +71,5 @@
 [视频音频](./note/视频音频/README.md)
 
 [浅谈页面优化](./note/浅谈页面优化/README.md)
+
+[js效果-图片预览](./note/js效果-图片预览/README.md)
