@@ -1,5 +1,7 @@
 # 图片预览
 
+通过input[type='file']拿到对应的数据，并没有上传图片获取远程图片的url
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -15,7 +17,7 @@
         <input type="file" name="file0" id="file0" multiple="multiple" />
       </div>
       <div>
-        <img src="" id="img0"  style="width: 100px;height: auto;"><img src="" id="img1"  style="width: 100px;height: auto;">
+        <img src="" id="img0"  style="width: 100px;height: auto;">
       </div>
     </form>
     <script>
