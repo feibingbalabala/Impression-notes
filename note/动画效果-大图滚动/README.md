@@ -98,7 +98,7 @@ function stop() {
     clearInterval(timer);
     timerScroll = setTimeout(function() {
       timer = setInterval(stop, 20);
-    }, 200);
+    }, 2000);
   };
 };
 ```
