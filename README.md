@@ -75,3 +75,5 @@
 [js效果-图片预览](./note/js效果-图片预览/README.md)
 
 [js效果-全选按钮](./note/js效果-全选按钮/README.md)
+
+[js效果-代码技巧](./note/js效果-代码技巧/README.md)
