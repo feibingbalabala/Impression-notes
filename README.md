@@ -81,3 +81,5 @@
 [canvas](./note/canvas/README.md)
 
 [canvas-圆形绘制](./note/canvas-圆形绘制/README.md)
+
+[require.js](./note/require.js/README.md)
