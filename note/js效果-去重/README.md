@@ -112,3 +112,31 @@ function uniq(array){
 var array = [1, 2, 2, 3, 4, 3];
 console.log(uniq(array));
 ```
+
+## 数组中包含对象去重
+
+这里必须需要一个对象中的key作为唯一值判断
+
+```js
+var oldArr = [
+  {id: 1, name: "zhangs1"},
+  {id: 1, name: "zhangs2"},
+  {id: 2, name: "zhangs3"},
+  {id: 3, name: "zhangs4"},
+  {id: 4, name: "zhangs5"},
+  {id: 4, name: "zhangs6"}
+];
+var allArr = [];
+for(var i = 0;i < oldArr.length; i++){
+  var flag = true;
+  // 利用状态来一个标记来判断是否需要进入数组
+  for(var j = 0; j < allArr.length; j++){
+    if(oldArr[i].id == allArr[j].id){
+      flag = false;
+    };
+  };
+  if(flag){
+    allArr.push(oldArr[i]);
+  };
+};
+```
