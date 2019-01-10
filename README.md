@@ -80,6 +80,8 @@
 
 [js效果-去重](./note/js效果-去重/README.md)
 
+[js效果-交集、并集、差集](./note/js效果-交集、并集、差集/README.md)
+
 [canvas](./note/canvas/README.md)
 
 [canvas-圆形绘制](./note/canvas-圆形绘制/README.md)
