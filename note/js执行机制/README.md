@@ -111,3 +111,32 @@ setInterval循环的执行。对于执行顺序来说，setInterval会每隔指�
 
 唯一需要注意的一点是，对于setInterval(fn,ms)来说，我们已经知道不是每过ms秒会执行一次fn，而是每过ms秒，会有fn进入Event Queue。一旦setInterval的回调函数fn执行时间超过了延迟时间ms，那么就完全看不出来有时间间隔了
 
+### promise
+
+macro-task(宏任务)：包括整体代码script，setTimeout，setInterval
+
+micro-task(微任务)：Promise
+
+不同类型的任务会进入对应的Event Queue，比如setTimeout和setInterval会进入相同的Event Queue。
+
+事件循环的顺序，决定js代码的执行顺序。进入整体代码(宏任务)后，开始第一次循环。接着执行所有的微任务。然后再次从宏任务开始，找到其中一个任务队列执行完毕，再执行所有的微任务。
+
+```js
+setTimeout(function() {
+  console.log(1);
+})
+new Promise(function(resolve) {
+  console.log(2);
+}).then(function() {
+  console.log(3);
+})
+console.log(4);
+```
+
+1. 这段代码作为宏任务，进入主线程。
+2. 先遇到setTimeout，那么将其回调函数注册后分发到宏任务Event Queue。
+3. 接下来遇到了Promise，new Promise立即执行，then函数分发到微任务Event Queue。
+4. 遇到console.log()，立即执行。
+5. 整体代码script作为第一个宏任务执行结束，then在微任务Event Queue里面，执行。
+6. 第一轮事件循环结束了，我们开始第二轮循环，当然要从宏任务Event Queue开始。我们发现了宏任务Event Queue中setTimeout对应的回调函数，立即执行。
+7. 结束。
