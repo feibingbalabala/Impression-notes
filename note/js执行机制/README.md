@@ -53,7 +53,7 @@ console.log(2)
 3. ajax执行完毕后，success进入Event Queue
 4. 主线程Event Queue执行success
 
-### 计时器
+### 计时器setTimeout
 
 ```js
 setTimeout(test() {
@@ -66,3 +66,48 @@ console.log(2);
 2. 执行console.log(2)
 3. setTimeout执行完毕后，test进入Event Queue
 4. 主线程Event Queue执行test
+
+```js
+setTimeout(() => {
+  console.log(1)
+}, 3000)
+sleep(10000)
+console.log(2)
+```
+
+1. console.log(1)进入Event Table并注册,计时开始。
+2. 执行sleep函数，很慢，非常慢，计时仍在继续。
+3. 3秒到了，计时事件timeout完成，console.log(1)进入Event Queue，但是sleep也太慢了吧，还没执行完，只好等着。
+4. sleep终于执行完了，console.log(1)终于从Event Queue进入了主线程执行
+
+setTimeout这个函数，是经过指定时间后，把要执行的任务(本例中为console.log(1))加入到Event Queue中，又因为是单线程任务要一个一个执行，如果前面的任务需要的时间太久，那么只能等着，导致真正的延迟时间远远大于3秒。
+我们还经常遇到setTimeout(fn, 0)这样的代码，0秒后执行又是什么意思呢？是不是可以立即执行呢？
+答案是不会的，setTimeout(fn, 0)的含义是，指定某个任务在主线程最早可得的空闲时间执行，意思就是不用再等多少秒了，只要主线程执行栈内的同步任务全部执行完成，栈为空就马上执行。举例说明：
+
+```js
+//代码1
+console.log('1');
+setTimeout(() => {
+  console.log('2')
+}, 0);复制代码
+//先执行这里
+//执行啦
+
+//代码2
+console.log('3');
+setTimeout(() => {
+  console.log('4')
+}, 3000);
+//先执行这里
+// ... 3s以后
+// 执行啦
+```
+
+关于setTimeout要补充的是，即便主线程为空，0毫秒实际上也是达不到的。根据HTML的标准，最低是4毫秒
+
+### 计时器setInterval
+
+setInterval循环的执行。对于执行顺序来说，setInterval会每隔指定的时间将注册的函数置入Event Queue，如果前面的任务耗时太久，那么同样需要等待。
+
+唯一需要注意的一点是，对于setInterval(fn,ms)来说，我们已经知道不是每过ms秒会执行一次fn，而是每过ms秒，会有fn进入Event Queue。一旦setInterval的回调函数fn执行时间超过了延迟时间ms，那么就完全看不出来有时间间隔了
+
