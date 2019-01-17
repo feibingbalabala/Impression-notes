@@ -140,3 +140,56 @@ console.log(4);
 5. 整体代码script作为第一个宏任务执行结束，then在微任务Event Queue里面，执行。
 6. 第一轮事件循环结束了，我们开始第二轮循环，当然要从宏任务Event Queue开始。我们发现了宏任务Event Queue中setTimeout对应的回调函数，立即执行。
 7. 结束。
+
+## 分析
+
+```js
+console.log('1');
+
+setTimeout(function() {
+  console.log('2');
+  new Promise(function(resolve) {
+    console.log('3');
+    resolve();
+  }).then(function() {
+    console.log('4')
+  })
+})
+new Promise(function(resolve) {
+  console.log('5');
+  resolve();
+}).then(function() {
+  console.log('6')
+})
+
+setTimeout(function() {
+  console.log('7');
+  new Promise(function(resolve) {
+    console.log('8');
+    resolve();
+  }).then(function() {
+    console.log('9')
+  })
+})
+```
+
+1. 执行console.log(1)
+2. setTimeout回调函数注册后分发到宏任务Event Queue
+3. 执行promise中console.log(5)，then被分发到微任务Event Queue中
+4. setTimeout回调函数注册后分发到宏任务Event Queue
+5. 宏任务执行完毕
+6. 执行console.log(6)
+7. 执行第一个setTimeout2、3、4
+8. 执行第二个setTimeout7、8、9
+
+## js的异步
+
+javascript是一门单线程语言，不管是什么新框架新语法糖实现的所谓异步，其实都是用同步的方法去模拟的，这点一定要记住，不要随意就被误导。
+
+## 事件循环Event Loop
+
+事件循环是js实现异步的一种方法，也是js的执行机制。
+
+## javascript的执行和运行
+
+执行和运行有很大的区别，javascript在不同的环境下，比如node，浏览器等等，执行方式是不同的。而运行大多指javascript解析引擎，是统一的。
