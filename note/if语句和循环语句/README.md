@@ -94,3 +94,51 @@ switch(x) {
   default: console.log('seven');
 }
 ```
+
+## forEach
+
+没有返回值，每个item都执行，设置return没用
+
+```js
+let arr = [1, 2, 3, 4, 5];
+arr.forEach((value, index) => {
+  if (value > 3) {
+    console.log(value) // 4 5
+  } else {
+    console.log(value) // 1 2 3
+  }
+});
+```
+
+## some
+
+当内部return true时跳出整个循环
+
+```js
+let arr = [1, 2, 3, 4, 5];
+arr.some((value, index) => {
+  if (value === 3) {
+    return true; //当内部return true时跳出整个循环
+  }
+  console.log(value)// 1 2
+});
+```
+
+## every
+
+当内部return false时跳出整个循环
+
+```js
+//every()当内部return false时跳出整个循环
+let arr = [1, 2, 3, 4, 5];
+arr.every((value, index) => {
+  if (value > 3) {
+    console.log(value)// 4
+    return false;
+  } else {
+    console.log(value)// 1 2 3
+    return true;
+    // 如果没有返回值true 的话，也会跳出循环(函数默认返回值是undefined，转换成Boolean也是false)
+  }
+});
+```
