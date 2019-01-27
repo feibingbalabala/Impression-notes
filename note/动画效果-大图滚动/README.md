@@ -50,57 +50,275 @@ clientWidth | clinentHeight
 
 不含边框元素的自身高度、宽度
 
-```js
-// step1:分析效果，搭建结构和样式；
-// step2:刷新页面，直接跳转到第二张图片；
-//  outer.scrollLeft = 200;
-// step3:点击跳转下一张；
-//  outer.onclick = function(){outer.scrollLeft = 200;}
-// step4:点击视口，滚动条向后滚动5px；
-//  outer.scrollLeft += 5;
-// step5:添加计时器，让图片滚动；
-// step6:滚动到第二张，停止计时器；
-// step7:常量改变量；
-// step8:点击视口，滚动到第二张；
-// step9:点击多次，计时器重叠，要清除(防叠加)；
-// step10:单向运动要改变成双向运动；(获取当前位置，与目标进行对比，计算出最终要达到的位置，让滚动条到该位置)；
-// step11:封装函数，改变点击事件的书写方式；
-// step12:获取距离，计算速度/步长；
-// setp13:target修改为参数；
-// setp14:添加图片索引值，点击视口之后，跳到下一张；
-// step15:将点击事件更换成计时器；
-// step16:添加序号：
-// 16.1通过循环、绑定事件’移动到点击图片序号位置;
-// 16.2清除计时器timescr;
-// 16.3重新启动计时器timescr；
-// step17:封装循环滚动函数scroll；
-// step18:添加左右按钮功能。
-var speed = 5;
-var timer = setInterval(function() {
-  main.scrollLeft += speed;
-  if (speed > 0 && main.scrollLeft === 800) {
-    main.scrollLeft = 0;
-  };
-  if (speed < 0 && main.scrollLeft === 0) {
-    main.scrollLeft = 800;
-  };
-}, 17);
+## 实现一次滚动
 
-// 每2秒后停止
-var timerScroll = null;
-var timer = setInterval(stop, 10);
-function stop() {
-  main.scrollLeft += 5;
-  if (main.scrollLeft >= main.clientWidth) {
-    main.scrollLeft = 0;
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>大图滚动</title>
+  <style>
+    .wrap {
+      overflow: scroll;
+      width: 200px;
+      height: 310px;
+      margin: 50px auto 0;
+      border: 1px solid #f00;
+    }
+    .con {
+      width: 1000px;
+      height: 310px;
+    }
+    .con img {
+      float: left;
+      width: 200px;
+      height: 310px;
+    }
+    .list {
+      width: 350px;
+      height: 50px;
+      margin: 0 auto;
+    }
+    .list li {
+      float: left;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 24px;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<!-- 	注意：子级的宽度需要大于父级的宽度
+		  采用几张图片，跟无缝滚动有什么区别？ -->
+<!-- img中的title添加索引值，方便调试 -->
+  <div class="wrap" id="outer">
+    <div class="con" id="inner">
+      <img src="../images/11.jpg" alt="" title="1">
+      <img src="../images/22.jpg" alt="" title="2">
+      <img src="../images/33.jpg" alt="" title="3">
+      <img src="../images/44.jpg" alt="" title="4">
+      <img src="../images/55.jpg" alt="" title="5">
+    </div>
+  </div>
+  <ul class="list" id="btn">
+    <li>←</li>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>→</li>
+  </ul>
+  <script>
+    // 获取标签
+    var outerBox = document.getElementById("outer");
+    var innerBox = document.getElementById("inner");
+    var btns = document.getElementById("btn").getElementsByTagName("li");
+    var timer = null;
+
+    function startMove(endPos) {
+      // 获取起点
+      var startPos = outerBox.scrollLeft;
+      var speed;
+
+      if (timer) {
+        clearInterval(timer);
+      };
+      timer = setInterval(move, 20); 
+
+      /*
+        * [move 缓冲运动函数]
+        * @return {[type]} [无返回值]
+        */
+      function move() {
+        // 起点与终点的距离不需要添加绝对值 0~200或者 200~0
+        speed = (endPos - startPos) / 10;
+        startPos += speed;
+
+        // 输出步长，发现步数存在多位小数点
+        console.log(speed);
+
+        // 起点到达终点清除计时器
+        if (startPos == endPos) {
+          clearInterval(timer);
+        };
+
+        outerBox.scrollLeft = startPos;
+      }
+    }
+    startMove(600);
+  </script>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>大图滚动</title>
+  <style>
+    .wrap {
+      width: 200px;
+      margin: 0 auto;
+      overflow: auto;
+    }
+    .box {
+      width: 800px;
+    }
+    .box img {
+      display: block;
+      float: left;
+      width: 200px;
+      height: 300px;
+    }
+    .foot {
+      width: 200px;
+      margin: 10px auto 0;
+      padding-left: 8px;
+    }
+    input[type = "button"] {
+      width: 28px;
+      height: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="outer">
+    <div class="box" id="inner">
+      <img src="../images/11.jpg" alt="">
+      <img src="../images/22.jpg" alt="">
+      <img src="../images/33.jpg" alt="">
+      <img src="../images/44.jpg" alt="">
+    </div>
+  </div>
+  <div class="foot" id="button">
+    <input type="button" value="左">
+    <input type="button" value="1">
+    <input type="button" value="2">
+    <input type="button" value="3">
+    <input type="button" value="4">
+    <input type="button" value="右">
+  </div>
+  <script type="text/javascript">
+  // step1:分析效果，搭建结构和样式；
+  // step2:刷新页面，直接跳转到第二张图片；
+  //    outer.scrollLeft = 200;
+  // step3:点击跳转下一张；
+  //    outer.onclick = function(){outer.scrollLeft = 200;}
+  // step4:点击视口，滚动条向后滚动5px；
+  //    outer.scrollLeft += 5;		
+  // step5:添加计时器，让图片滚动；
+  // step6:滚动到第二张，停止计时器；
+  // step7:常量改变量；
+  // step8:点击视口，滚动到第二张；
+  // step9:点击多次，计时器重叠，要清除(防叠加)；
+  // step10:单向运动要改变成双向运动；(获取当前位置，与目标进行对比，计算出最终要达到的位置，让滚动条到该位置)；
+  // step11:封装函数，改变点击事件的书写方式；
+  // step12:获取距离，计算速度/步长；
+  // setp13:target修改为参数；
+  // setp14:添加图片索引值，点击视口之后，跳到下一张；
+  // step15:将点击事件更换成计时器；
+  // step16:添加序号：
+  //    16.1通过循环、绑定事件’移动到点击图片序号位置;
+  //    16.2清除计时器timescr;
+  //    16.3重新启动计时器timescr；
+  // step17:封装循环滚动函数scroll；
+  // step18:添加左右按钮功能。
+  var outer = document.getElementById("outer");
+  var box = document.getElementById("inner");
+  var btn = document.getElementById("button").getElementsByTagName("input");
+  //获取控制按钮；
+  // var target = 200; //目标值
+  var timer = null; // 图片滚动计时器
+  var timescr = null;// 自动更换图片计时器；
+  var index = 0; // 图片的序号；
+
+  //一张一张滚动的函数；
+  function scroll(){
+    timescr = setInterval(function () {//隔多久走一次
+      index++;
+      if (index >= 4) {
+        index = 0;
+    }
+    move(index * 200);
+    },1000);
+  }
+  scroll();//调用该函数刷新页面即自动更换图片；
+
+  // 添加序号控制：
+  for (var i = 1; i < btn.length; i++) {
+    btn[i].index = i - 1;
+    btn[i].onclick = function () {
+      if (timescr) {
+        clearInterval(timescr);
+      }
+      index = this.index;
+      move(this.index * 200);
+      scroll();//重新唤起计时器，更换图片；
+    }
   };
-  if (main.scrollLeft % 200 === 0) {
-    clearInterval(timer);
-    timerScroll = setTimeout(function() {
-      timer = setInterval(stop, 20);
-    }, 2000);
-  };
-};
+
+  //左按钮：
+  btn[0].onclick = function(){
+    if (timescr) {
+      clearInterval(timescr);
+    }
+    index--;
+    if(index < 0){
+      index = 3;
+    }
+    move(index * 200);
+    scroll();
+  }
+  //右按钮:
+  btn[5].onclick = function(){
+    if (timescr) {
+      clearInterval(timescr);
+    }
+    index++;
+    if(index >= 4){
+      index = 0;
+    }
+    move(index * 200);
+    scroll();
+  }
+
+  // 刷新页面产生滚动效果：
+  function move(target){
+    if (timer) {
+      clearInterval(timer);
+    }
+    var start = outer.scrollLeft; //获取开始位置；
+    // Math.abs();取绝对值；
+    var distance = Math.abs(target - start); //获取路程绝对值；
+    var speed = distance / 20; //获取改变的速度
+    timer = setInterval(function () {
+      if (start < target) {
+    //初始位置小于目标值，继续+speed滚动;到了大于或等于，就清除计时器，并且目标位置等于初始位置，产生新的初始位置；
+        start +=speed;
+        if (start >= target) {
+          clearInterval(timer);
+          start = target;
+        }
+      }else {
+        start -= speed;
+        if(start <= target){
+          clearInterval(timer);
+          start = target;
+        }
+      }
+      outer.scrollLeft = start;//为新的初始位置赋值；
+    },17);
+  }
+  </script>
+</body>
+</html>
 ```
 
 ## 兼容
