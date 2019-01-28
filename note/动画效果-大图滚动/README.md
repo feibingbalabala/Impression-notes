@@ -684,44 +684,76 @@ var topval = document.body.scrollTop || document.documentElement.scrollTop;
 
 ## 重力反弹
 
-```js
-var main = document.getElementById('main');
-var ball = document.getElementById('ball');
-var posX = 0;
-var posY = 0;
-var moveX = true;
-var moveY = true;
-var timer = setInterval(function() {
-  parseInt(posX);
-  parseInt(posY);
-  if (moveY) {
-    posY += 50;
-    if (posY >= main.clientWidth - ball.offsetWidth) {
-      posY = main.clientWidth - ball.offsetWidth;
-      moveY = false;
-    };
-  } else {
-    posY -= 50;
-    if (posY <= 0) {
-      posY = 0;
-      moveY = true;
-    };
-  };
-  if (moveX) {
-    posX += 50;
-    if (posX >= main.clientHeight - ball.offsetHeight) {
-      posX = main.clientHeight - ball.offsetHeight;
-      moveX = false;
-    };
-  } else {
-    posX -= 50;
-    if (posY <= 0) {
-      posX = 0;
-      moveX = true;
-    };
-  };
-  ball.style.top = posX + 'px';
-  ball.style.left = posY + 'px';
-}, 200)
-
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .main {
+      position: relative;
+      width: 600px;
+      height: 600px;
+      border: 2px solid #000;
+      margin: 150px auto 0;
+    }
+    .ball {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background-color: #000;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id='main' class="main">
+    <div id="ball" class="ball"></div>
+  </div>
+  <script>
+    var main = document.getElementById('main');
+    var ball = document.getElementById('ball');
+    var posX = 0;
+    var posY = 0;
+    var moveX = true;
+    var moveY = true;
+    var timer = setInterval(function() {
+      parseInt(posX);
+      parseInt(posY);
+      console.log(posX, posY)
+      if (moveY) {
+        posY += 30;
+        if (posY >= main.clientHeight - ball.offsetHeight) {
+          posY = main.clientHeight - ball.offsetHeight;
+          moveY = false;
+        };
+      } else {
+        posY -= 30;
+        if (posY <= 0) {
+          posY = 0;
+          moveY = true;
+        };
+      };
+      if (moveX) {
+        posX += 50;
+        if (posX >= main.clientWidth - ball.offsetWidth) {
+          posX = main.clientWidth - ball.offsetWidth;
+          moveX = false;
+        };
+      } else {
+        posX -= 50;
+        if (posX <= 0) {
+          posX = 0;
+          moveX = true;
+        };
+      };
+      ball.style.top = posX + 'px';
+      ball.style.left = posY + 'px';
+    }, 200)
+  </script>
+</body>
+</html>
 ```
