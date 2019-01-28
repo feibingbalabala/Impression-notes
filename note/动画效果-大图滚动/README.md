@@ -112,7 +112,6 @@ clientWidth | clinentHeight
 <body>
 <!-- 	注意：子级的宽度需要大于父级的宽度
 		  采用几张图片，跟无缝滚动有什么区别？ -->
-<!-- img中的title添加索引值，方便调试 -->
   <div class="wrap" id="outer">
     <div class="con" id="inner">
       <div class="bg-green"></div>
@@ -261,8 +260,8 @@ clientWidth | clinentHeight
     var btns = document.getElementById("btn").getElementsByTagName("li");
 
     var timer = null;
-    var timerIndex	= null;
-    var index 		= 0 ;
+    var timerIndex = null;
+    var index = 0 ;
 
     /*
       * [大图滚动函数]
@@ -282,7 +281,7 @@ clientWidth | clinentHeight
       /*
         * [move 缓冲运动函数]
         * @return {[type]} [无返回值]
-        */		
+        */
       function move() {
         // 起点与终点的距离不需要添加绝对值 0~200或者 200~0
         speed = (endPos - startPos) / 10;
@@ -559,7 +558,7 @@ clientWidth | clinentHeight
   // step3:点击跳转下一张；
   //    outer.onclick = function(){outer.scrollLeft = 200;}
   // step4:点击视口，滚动条向后滚动5px；
-  //    outer.scrollLeft += 5;		
+  //    outer.scrollLeft += 5;
   // step5:添加计时器，让图片滚动；
   // step6:滚动到第二张，停止计时器；
   // step7:常量改变量；
