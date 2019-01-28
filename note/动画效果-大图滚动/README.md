@@ -59,6 +59,9 @@ clientWidth | clinentHeight
   <meta charset="UTF-8">
   <title>大图滚动</title>
   <style>
+    div, ul {
+      list-style: none;
+    }
     .wrap {
       overflow: scroll;
       width: 200px;
@@ -70,7 +73,7 @@ clientWidth | clinentHeight
       width: 1000px;
       height: 310px;
     }
-    .con img {
+    .con div {
       float: left;
       width: 200px;
       height: 310px;
@@ -89,6 +92,21 @@ clientWidth | clinentHeight
       text-align: center;
       cursor: pointer;
     }
+    .bg-green {
+      background-color: green;
+    }
+    .bg-black {
+      background-color: black;
+    }
+    .bg-red {
+      background-color: red;
+    }
+    .bg-pink {
+      background-color: pink;
+    }
+    .bg-blue {
+      background-color: blue;
+    }
   </style>
 </head>
 <body>
@@ -97,11 +115,11 @@ clientWidth | clinentHeight
 <!-- img中的title添加索引值，方便调试 -->
   <div class="wrap" id="outer">
     <div class="con" id="inner">
-      <img src="../images/11.jpg" alt="" title="1">
-      <img src="../images/22.jpg" alt="" title="2">
-      <img src="../images/33.jpg" alt="" title="3">
-      <img src="../images/44.jpg" alt="" title="4">
-      <img src="../images/55.jpg" alt="" title="5">
+      <div class="bg-green"></div>
+      <div class="bg-black"></div>
+      <div class="bg-red"></div>
+      <div class="bg-pink"></div>
+      <div class="bg-blue"></div>
     </div>
   </div>
   <ul class="list" id="btn">
@@ -156,6 +174,317 @@ clientWidth | clinentHeight
 </html>
 ```
 
+## 利用两个计时器和索引值
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>大图滚动</title>
+  <style>
+    div, ul {
+      list-style: none;
+    }
+    .wrap {
+      overflow: hidden;
+      width: 200px;
+      height: 310px;
+      margin: 50px auto 0;
+      border: 1px solid #f00;
+    }
+    .con {
+      width: 1000px;
+      height: 310px;
+    }
+    .con div {
+      float: left;
+      width: 200px;
+      height: 310px;
+    }
+    .list {
+      width: 350px;
+      height: 50px;
+      margin: 0 auto;
+    }
+    .list li {
+      float: left;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 24px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .bg-green {
+      background-color: green;
+    }
+    .bg-black {
+      background-color: black;
+    }
+    .bg-red {
+      background-color: red;
+    }
+    .bg-pink {
+      background-color: pink;
+    }
+    .bg-blue {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+<!-- 	注意：子级的宽度需要大于父级的宽度
+      采用几张图片，跟无缝滚动有什么区别？ -->
+  <div class="wrap" id="outer">
+    <div class="con" id="inner">
+      <div class="bg-green"></div>
+      <div class="bg-black"></div>
+      <div class="bg-red"></div>
+      <div class="bg-pink"></div>
+      <div class="bg-blue"></div>
+    </div>
+  </div>
+  <ul class="list" id="btn">
+    <li>←</li>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>→</li>
+  </ul>
+  <script>
+    // 获取标签
+    var outerBox = document.getElementById("outer");
+    var innerBox = document.getElementById("inner");
+    var btns = document.getElementById("btn").getElementsByTagName("li");
+
+    var timer = null;
+    var timerIndex	= null;
+    var index 		= 0 ;
+
+    /*
+      * [大图滚动函数]
+      * @param  {[type]} endPos [description]
+      * @return {[type]}        [description]
+      */
+    function startMove(endPos) {
+      // 获取起点
+      var startPos = outerBox.scrollLeft;
+      var speed;
+
+      if (timer) {
+        clearInterval(timer);
+      };
+      timer = setInterval(move, 20); 
+
+      /*
+        * [move 缓冲运动函数]
+        * @return {[type]} [无返回值]
+        */		
+      function move() {
+        // 起点与终点的距离不需要添加绝对值 0~200或者 200~0
+        speed = (endPos - startPos) / 10;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+        startPos += speed;
+
+        // 输出步长
+        console.log(speed);
+
+        // 实现自动贴合
+        if (Math.abs(endPos - startPos) <= 6) {
+          startPos = endPos;
+          // 清除计时器
+          clearInterval(timer);
+        };
+
+        outerBox.scrollLeft = startPos;
+      }
+    }
+
+    /*
+      * [利用索引值实现多次滚动]
+      * @return {[type]} [description]
+      */
+    function indexChange() {
+      index++;
+      if (index == 5) {
+        index = 0;
+      };
+      startMove(index * 200);
+    }
+
+    timerIndex = setInterval(indexChange, 3000);
+  </script>
+</body>
+</html>
+```
+
+## 添加序号控制
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>大图滚动</title>
+  <style>
+    div, ul {
+      list-style: none;
+    }
+    .wrap {
+      overflow: hidden;
+      width: 200px;
+      height: 310px;
+      margin: 50px auto 0;
+      border: 1px solid #f00;
+    }
+    .con {
+      width: 1000px;
+      height: 310px;
+    }
+    .con div {
+      float: left;
+      width: 200px;
+      height: 310px;
+    }
+    .list {
+      width: 350px;
+      height: 50px;
+      margin: 0 auto;
+    }
+    .list li {
+      float: left;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 24px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .bg-green {
+      background-color: green;
+    }
+    .bg-black {
+      background-color: black;
+    }
+    .bg-red {
+      background-color: red;
+    }
+    .bg-pink {
+      background-color: pink;
+    }
+    .bg-blue {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+<!-- 	注意：子级的宽度需要大于父级的宽度
+		  采用几张图片，跟无缝滚动有什么区别？ -->
+  <div class="wrap" id="outer">
+    <div class="con" id="inner">
+      <div class="bg-green"></div>
+      <div class="bg-black"></div>
+      <div class="bg-red"></div>
+      <div class="bg-pink"></div>
+      <div class="bg-blue"></div>
+    </div>
+  </div>
+  <ul class="list" id="btn">
+    <li>←</li>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>→</li>
+  </ul>
+  <script>
+    // 获取标签
+    var outerBox = document.getElementById("outer");
+    var innerBox = document.getElementById("inner");
+    var btns = document.getElementById("btn").getElementsByTagName("li");
+    var len = btns.length;
+
+    var timer = null;
+    var timerIndex = null;
+    var index = 0 ;
+
+    /*
+      * [大图滚动函数]
+      * @param  {[type]} endPos [description]
+      * @return {[type]}        [description]
+      */
+    function startMove(endPos) {
+      // 获取起点
+      var startPos = outerBox.scrollLeft;
+      var speed;
+
+      if (timer) {
+        clearInterval(timer);
+      };
+      timer = setInterval(move, 20); 
+
+      /*
+      * [move 缓冲运动函数]
+      * @return {[type]} [无返回值]
+      */
+      function move() {
+        // 起点与终点的距离不需要添加绝对值 0~200或者 200~0
+        speed = (endPos - startPos) / 10;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+        startPos += speed;
+
+        // 输出步长
+        console.log(speed);
+
+        // 实现自动贴合
+        if (Math.abs(endPos - startPos) <= 6) {
+          startPos = endPos;
+          // 清除计时器
+          clearInterval(timer);
+        };
+
+        outerBox.scrollLeft = startPos;
+      }
+    }
+
+    /*
+      * [利用索引值实现多次滚动]
+      * @return {[type]} [description]
+      */
+    function indexChange() {
+      index++;
+      if (index == 5) {
+        index = 0;
+      };
+      startMove(index * 200);
+    }
+
+    timerIndex = setInterval(indexChange, 3000);
+
+    // 添加序号功能
+    for (var i = 1; i < len; i++) {
+      btns[i].onclick = function(num) {
+        return function() {
+          // 清除计时器
+          clearInterval(timerIndex);
+          // 序号的索引要与自动滚动的索引保持一致
+          index = num -1;
+          startMove(index * 200);
+          // 再次启动计时器
+          timerIndex = setInterval(indexChange, 3000);
+        }
+      }(i);
+    };
+
+  </script>
+</body>
+</html>
+```
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -163,6 +492,9 @@ clientWidth | clinentHeight
   <meta charset="UTF-8">
   <title>大图滚动</title>
   <style>
+    div, ul {
+      list-style: none;
+    }
     .wrap {
       width: 200px;
       margin: 0 auto;
@@ -186,15 +518,30 @@ clientWidth | clinentHeight
       width: 28px;
       height: 28px;
     }
+    .bg-green {
+      background-color: green;
+    }
+    .bg-black {
+      background-color: black;
+    }
+    .bg-red {
+      background-color: red;
+    }
+    .bg-pink {
+      background-color: pink;
+    }
+    .bg-blue {
+      background-color: blue;
+    }
   </style>
 </head>
 <body>
   <div class="wrap" id="outer">
     <div class="box" id="inner">
-      <img src="../images/11.jpg" alt="">
-      <img src="../images/22.jpg" alt="">
-      <img src="../images/33.jpg" alt="">
-      <img src="../images/44.jpg" alt="">
+      <div class="bg-green"></div>
+      <div class="bg-black"></div>
+      <div class="bg-red"></div>
+      <div class="bg-pink"></div>
     </div>
   </div>
   <div class="foot" id="button">
