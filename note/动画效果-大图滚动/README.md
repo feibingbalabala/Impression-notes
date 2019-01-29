@@ -484,6 +484,8 @@ clientWidth | clinentHeight
 </html>
 ```
 
+## 大图滚动
+
 ```html
 <!DOCTYPE html>
 <html>
