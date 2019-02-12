@@ -161,7 +161,7 @@ Boolean(2) == true // true
 
 ## 数据类型转换
 
-将数字转化成字符串，将字符串转换成数字
+<!-- 将数字转化成字符串，将字符串转换成数字
 
 隐式装换
 
@@ -191,4 +191,124 @@ Boolean(2) == true // true
 数字->字符串
 
 1. a.toString(2)括号内代表进制；
-2. string(a)
+2. string(a) -->
+
+### NaN
+
+1. Not a Number
+2. undefined进行任何数学运算
+3. 非数字型字符串，进行了数学运算（+会变为连字符，所以+通常不会触发问题）
+
+### tips
+
+1. NaN 类型为 数字（number）
+2. NaN != NaN
+3. NaN在布尔值中是false
+4. 两种检测数据属于那种布尔值的方法，一种是将数据与两种布尔值比较（==）；另一种是对数据取反，如(!NaN)
+
+### Infinity
+
+无穷 Infinity；负无穷 -Infinity；类型：number
+
+### 数据类型之间的比较
+
+1. 字符串类型，逐位比较（"54" > "200121"）
+2. undefined == undefined == null == null
+3. {} != {} ; var obj = {}; obj == obj
+4. 数字类型的字符串与数字相等 "3434" == 3434
+
+```js
+// 1、显示转换
+// 1.1字符串转数字
+  // Number()
+    var num1 = Number(true);             // 1
+    var num2 = Number(12);              // 12
+    var num3 = Number(null);            // 0
+    var num4 = Number(undefined);       // NaN
+    var num5 = Number("Hello World");  // NaN，调用toString()
+    var num6 = Number("0000011");     // 11
+    var num7 = Number(" ");             // 0
+    var num8 = Number(1.222);          // 1
+    // 如果是对象，则调用valueOf()方法
+    var obj = {
+        "name": "3",
+        "age": "4"
+    }
+    console.log(obj.valueOf());
+    // 总结：
+        // 1.  如果是Boolean值，true和false转换就是1和0。
+        // 2.  如果是数值，只是简单的传入和返回。
+        // 3.  如果是null值，则返回0。
+        // 4.  如果是undefined，返回NaN。
+        // 5.  如果字符串只包含数字（包括前面正负号）则转成十进制如： “123”变成123; “0123”变成123
+        // 6.  如果字符包含浮点格式如“1.1”会忽略小数点转变成1
+        // 7.  如果字符串是空的，则转成0
+        // 8.  如果字符串包含上述格式外的，则转成NaN
+        // 9.  如果是对象，则调用对象valueOf()方法，
+        // 10. 如果转换的结果是NaN,那么调用toString()方法。
+
+  // parseInt()
+    var num1 = parseInt("123sf") ;      // 123
+    var num2 = parseInt(" ");           // NaN
+    var num3 = parseInt("0xA");        // 10（16进制）
+    var num4 = parseInt("22.5");       // 22
+    var num5 = parseInt("070");       // 56(八进制)
+    var num6 = parseInt("70");        // 70
+    var num7 = parseInt("0xf");       // 15
+    console.log(num7);
+
+    // 在使用parseInt()解析像八进制字面的字符串时，比如parseInt（"010"）方法在不同浏览器下存在兼容问题谷歌：10；IE6、IE7、IE8会按照8进制进行转换，结果为8；
+    var num8 = parseInt("010");
+    // console.log(num8);
+    // 解决方法是：
+    // var num8 = parseInt("010", 10);
+
+    // 总结：
+      // parseInt()函数在转换字符串时，更多的是看其是否符合数值模式。它会忽略字符串前面的空格，直至找到第一个非空格字符。如果第一个字符不是数字字符或者负号，parseInt()就会返回NaN，如果是空字符串，则会返回NaN。如果第一个字符是数字字符，parseInt()会继续解析第二个字符，直到解析完所有后续字符或者遇到非数字字符。
+
+  // parseFloat()
+    var num1 = parseFloat("1234blue");   //1234
+    var num2 = parseFloat("0xA");        // 0
+    var num3 = parseFloat("22.5");       // 22.5
+    var num4 = parseFloat("22.34.5");    // 22.34
+    var num5 = parseFloat("3.125e7");   // 31250000
+    console.log(num5);
+
+    // 总结：
+      // parseFloat()可以返回小数。parseFloat()转换的时候，也是从第一个字符开始解析每个字符，直到解析到字符串末尾，或者解析到遇见一个无效的浮点数字字符为止，也就是说，字符串中的第一个小数点是有效的，而第二个小数点就是无效的。
+
+// 1.2数字转字符串
+  // toString()方法引入：
+    // 当然toString可以通过输入基数以二进制，八进制，十六进制，乃至其他有效的进制格式表示字符串。
+    var num = 10;
+    console.log(num.toString());    // '10'
+    console.log(num.toString(2));   // '1010'
+    console.log(num.toString(16));  // 'a'
+  // toFixed()方法引入：
+      // 保留几位小数。  输出类型：string
+      // toFixed() 方法可把 Number数值 四舍五入为指定小数位数的数字。
+      var a = 0.1;
+      var b = 0.23;
+      var c = a + b;
+      console.log(c); //0.33
+      console.log(c.toFixed(3)); //0.330
+      console.log(typeof(c.toFixed(2))); // String
+
+// 2、隐式转换
+  // 隐式转换的方式可以通过+""、* 1、/ 1的运算来把数值转换成字符串。（可相互）
+    // 2.1、数字——字符串： +（连字符）;          数字+字符串=字符串；
+        var num = 10;
+        var str = num + " ";
+        console.log(typeof(str));   //String
+
+    // 2.2、字符串——数字： + - * / %;
+      // "123"-0  "123"*0  "123"/0  +"123" "123"%比前面的数值字符串大的数字；
+      var num = "520";
+      console.log(typeof(num - 0));
+      console.log(typeof(num * 0));
+      console.log(typeof(num / 0));
+      console.log(typeof(+ num));
+      console.log(typeof(num % 600));
+
+// 显示隐式的选用原则——使用显示转换
+```

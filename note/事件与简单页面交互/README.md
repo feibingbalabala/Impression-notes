@@ -206,18 +206,33 @@ add(1, 2) // 3
 ## 两个数相加
 
 ```html
-<div class="wrap">
-  <form action="" method="">
-    <div class="inner">
-      <input type="text" id="num1" value="" />
-      <input type="text" id="num2" value="" />
-      <!-- <input type="button" id="sum-btn" value="求和结果"> -->
-      <button type="button" id="sum-btn">求和结果</button>
-    </div>
-  </form>
-  <p id="result">求和结果</p>
-</div>
-<script type="text/javascript">
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style type="text/css">
+    .wrap form {
+      width: 200px;
+      margin: 0 auto;
+    }
+    .con input {
+      margin: 3px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>页面交互 - 效果制作</h1>
+    <form action="" method="">
+      <div class="con">
+        <input type="text" id="first" />
+        <input type="text" id="second" />
+        <input type="button" id="btn" value="点击求和" />
+        <p id="result">求和的结果是：</p>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript">
     //功能描述：输入两个数，点击按钮，求和结果输出在P标签
     //细化功能
     //1、输入两个数
@@ -225,18 +240,31 @@ add(1, 2) // 3
     //3、获取input【type=“text”】的值，相加
     //4、结果输出的p标签中
 
-    //获取标签
-    var num1 = document.getElementById("num1");
-    var num2 = document.getElementById("num2");
-    var btn = document.getElementById("sum-btn");
-    var result = document.getElementById("result");
-    btn.onclick = function() {
-      var sum = parseInt(num1.value) + parseInt(num2.value);
-      // console.log(result.innerHTML)
-      result.innerHTML = "求和结果" + sum;
+    // 获取标签
+    var firstNum = document.getElementById("first");
+    var secondNum = document.getElementById("second");
+    var btnClick = document.getElementById("btn");
+    var result = document.getElementById("result")
+    // 绑定事件
+    btnClick.onclick = function() {
+      // 获取内容
+      var firstInput = firstNum.value;
+      var secondInput = secondNum.value;
+      // console.log(firstInput,secondInput);
+      // console.log(typeof(firstInput),typeof(secondInput));
+      // 数据类型转换
+      var sum = parseInt(firstInput) + parseInt(secondInput);
+      console.log(sum);
+      console.log(typeof(sum));
+      // 设置内容
+      result.innerHTML = "求和的结果是：" + sum;
     }
-</script>
+  </script>
+</body>
+</html>
 ```
+
+如果在输入框中输入非数字就会得到结果NaN，这里就牵扯到一个东西，数据转换问题。[相关文章](../JS初探2/README.md#数据类型转换)
 
 ## 元素变大变小
 
