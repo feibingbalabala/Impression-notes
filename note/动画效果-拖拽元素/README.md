@@ -31,45 +31,75 @@ if(evt.preventDefault){
 
 ## 拖拽案例
 
-```js
-var wrap = document.getElementById('wrap');
-var btn = document.getElementById('box);
-btn.onmousedown = function (event) {
-  var evt = event || window.event;
-  var mouseX = evt.clientX;
-  var mouseY = evt.clientY;
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  .wrap {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    border: 1px solid #000;
+  }
+  .inner {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #000;
+  }
+</style>
+<body>
+  <div id="wrap" class="wrap">
+    <div id="box" class="inner"></div>
+  </div>
+  <script>
+    var wrap = document.getElementById('wrap');
+    var btn = document.getElementById('box');
+    btn.onmousedown = function (event) {
+      var evt = event || window.event;
+      var mouseX = evt.clientX;
+      var mouseY = evt.clientY;
 
-  var disX = mouseX - btn.offsetLeft;
-  var disY = mouseY - btn.offsetTop;
-  document.onmousemove = function (event) {
-    var evt = event || window.event;
-    if (evt.preventDefault) {
-      evt.preventDefault();
-    } else {
-      evt.returnValue = false;
+      var disX = mouseX - btn.offsetLeft;
+      var disY = mouseY - btn.offsetTop;
+      document.onmousemove = function (event) {
+        var evt = event || window.event;
+        if (evt.preventDefault) {
+          evt.preventDefault();
+        } else {
+          evt.returnValue = false;
+        }
+        var endX = evt.clientX;
+        var endY = evt.clientY;
+        var posX = endX - disX;
+        var posY = endY - disY;
+        if (posX >= wrap.clientWidth - btn.offsetWidth) {
+          posX = wrap.clientWidth - btn.offsetWidth;
+        };
+        if (posX <= 0) {
+          posX = 0;
+        };
+        if (posY >= wrap.clientHeight - btn.offsetHeight) {
+          posY = wrap.clientHeight - btn.offsetHeight;
+        };
+        if (posY <= 0) {
+          posY = 0;
+        };
+        btn.style.left = posX + 'px';
+        btn.style.top = posY + 'px';
+      };
+    };
+    document.onmouseup = function () {
+      // 清除鼠标事件
+      document.onmousemove = null;
     }
-    var endX = evt.clientX;
-    var endY = evt.clientY;
-    var posX = endX - disX;
-    var posY = endY - disY;
-    if (posX >= wrap.clientWidth - btn.offetWidth) {
-      posX = wrap.clientWidth - btn.offsetWidth;
-    };
-    if (posX <= 0) {
-      posX = 0;
-    };
-    if (posY >= wrap.clientHeight - btn.offsetHeight) {
-      posY = wrap.clientHeight - btn.offsetHeight;
-    };
-    if (posY <= 0) {
-      posY = 0;
-    };
-    btn.style.left = posX + 'px';
-    btn.style.top = posY + 'px';
-  };
-};
-document.onmouseup = function () {
-  // 清楚鼠标事件
-  document.onmousemove = null;
-}
+  </script>
+</body>
+</html>
 ```
