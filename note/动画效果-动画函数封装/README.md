@@ -83,53 +83,84 @@ for (var prop in obj) {
 
 ## 动画效果封装
 
-```js
-function change(ele, obj, changeStep, fn) {
-  if (ele.timer) {
-    clearInterval(ele.timer);
-  };
-  ele.timer = setInterval(sport, 20);
-  function sport () {
-    var flag = true;
-    for (var prop in obj) {
-      if (prop === 'opacity') {
-        var startVal = parseInt(getStyle(elem, prop) * 100);
-      } else {
-        var startVal = parseInt(getStyle(elem, prop));
-      };
-      var distance = Math.abs(obj[prop] - startval);
-      if (prop === 'opacity') {
-        var speed = Math.ceil(distance / changeStep);
-        if (speed === 1) {
-          speed = 2;
-        };
-      } else {
-        var speed = Math.ceil(distance / changeStep);
-      };
-      if (startVal < obj[prop]) {
-        startVal += speed;
-      } else {
-        startVal -= speed;
-      }
-      if (distance <= 5) {
-        startVal = obj[prop];
-      } else {
-        flag = false;
-      };
-      if (prop === 'opacity') {
-        ele.style[prop] = startVal / 100;
-        ele.style['filter'] = 'alpha(opacity='+ startVal +')';
-      } else {
-        ele.style[prop] = startVal + 'px';
-        // 这里的属性不能用.属性，因为这样会被认为是一个字符串
-      };
-    };
-    if (flag) {
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  .wrap {
+    width: 500px;
+    height: 500px;
+    border: 1px solid #000;
+  }
+</style>
+<body>
+<div id='wrap' class="wrap"></div>
+<script type='text/javascript'>
+  function change(ele, obj, changeStep, fn) {
+    if (ele.timer) {
       clearInterval(ele.timer);
-      if (fn) {
-        fn(); // 执行回调函数，先判断有无回调函数，否则会报错。
+    };
+    ele.timer = setInterval(sport, 20);
+    function sport () {
+      var flag = true;
+      for (var prop in obj) {
+        var startVal = 0;
+        if (prop === 'opacity') {
+          startVal = parseInt(getStyle(ele, prop) * 100);
+        } else {
+          startVal = parseInt(getStyle(ele, prop));
+        };
+        var distance = Math.abs(obj[prop] - startVal);
+        if (prop === 'opacity') {
+          var speed = Math.ceil(distance / changeStep);
+          if (speed === 1) {
+            speed = 2;
+          };
+        } else {
+          var speed = Math.ceil(distance / changeStep);
+        };
+        if (startVal < obj[prop]) {
+          startVal += speed;
+        } else {
+          startVal -= speed;
+        }
+        if (distance <= 5) {
+          startVal = obj[prop];
+        } else {
+          flag = false;
+        };
+        if (prop === 'opacity') {
+          ele.style[prop] = startVal / 100;
+          ele.style['filter'] = 'alpha(opacity='+ startVal +')';
+        } else {
+          ele.style[prop] = startVal + 'px';
+          // 这里的属性不能用.属性，因为这样会被认为是一个字符串
+        };
+      };
+      if (flag) {
+        clearInterval(ele.timer);
+        if (fn) {
+          fn(); // 执行回调函数，先判断有无回调函数，否则会报错。
+        };
       };
     };
   };
-};
+  function getStyle(ele, prop) {
+    if (ele.currentStyle) {
+      return ele.currentStyle[prop];
+    } else {
+      return getComputedStyle(ele, null)[prop];
+    };
+  };
+  var wrap = document.getElementById('wrap');
+  change(wrap, {'width': '200'}, 3)
+</script>
+</body>
+</html>
 ```
