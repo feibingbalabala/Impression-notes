@@ -5,7 +5,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>HTML5Course</title>
+  <title></title>
   <style>
     .wrap {
       position: relative;
