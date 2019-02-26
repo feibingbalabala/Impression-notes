@@ -131,6 +131,14 @@ console.log(peo2.showInfo == peo.showInfo)
 ## 制作一个tab切换
 
 ```js
+/*
+* titId | 头部的点击id
+* titEle | 头部触发的元素
+* conId | 内容的变化的id
+* conEle | 内容变化的元素
+* selClass | 头部选购中的class名称
+* showClass | 内容部分选中的class名称
+*/
 function TabSwitch(titId, titEle, conId, conEle, selClass, showClass) {
   // 防止指向错误
   var _this = this;
@@ -158,4 +166,101 @@ TabSwitch.prototype.switchClass = function (tabObj, sel) {
   this.divArr[tabObj.index].className = showClass;
 };
 new TabSwitch('tabTit', 'span', 'tabCon', 'div', 'select', 'show');
+```
+
+## 实现一个拖拽效果
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <style>
+    .box {
+      position: relative;
+      width: 800px;
+      height: 400px;
+      border: 1px solid #f00;
+    }
+    .block {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: #f00;
+    }
+    #limitSport {
+      top: 80px;
+      left: 60px;
+      background: #00f;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap" class="box">
+    <div class="block" id="sport"></div>
+  </div>
+  <script>
+    /*
+    * blockId | 需要移动的元素id
+    * areaId | (可选)可移动的区域
+    */
+    function Drag(blockId, areaId){
+      var _this = this;
+      this.sportX = null;
+      this.sportY = null;
+      this.sport = document.getElementById(blockId);
+      if (areaId) {
+        this.area = document.getElementById(areaId);
+      }
+      this.sport.onmousedown = function(e){
+        _this.dragStart(e);
+      };
+    }
+    Drag.prototype.dragEnd = function(){
+      document.onmousemove = null;
+    }
+    Drag.prototype.dragStart = function(e){
+      var _this = this;
+      var e = e || window.event;
+      this.sprotX = this.sport.offsetLeft - e.clientX;
+      this.sprotY = this.sport.offsetTop - e.clientY;
+      document.onmousemove = function(e){
+        _this.dragMove(e);
+      };
+      document.onmouseup = this.dragEnd;
+      e.preventDefault();
+    }
+    Drag.prototype.dragMove = function(e){
+      var e = e || window.event;
+      var moveX = 0;
+      var moveY = 0;
+      if (this.area) {
+        if (e.clientX + this.sprotX > this.area.offsetWidth - this.sport.offsetWidth) {
+          moveX = this.area.offsetWidth - this.sport.offsetWidth
+        } else if (e.clientX + this.sprotX < 0) {
+          moveX = 0
+        } else {
+          moveX = e.clientX + this.sprotX
+        };
+        if (e.clientY + this.sprotY > this.area.offsetHeight - this.sport.offsetHeight) {
+          moveY = this.area.offsetHeight - this.sport.offsetHeight
+        } else if (e.clientY + this.sprotY < 0) {
+          moveY = 0
+        } else {
+          moveY = e.clientY + this.sprotY
+        }
+      } else {
+        moveX = e.clientX + this.sprotX
+        moveY = e.clientY + this.sprotY
+      }
+      this.sport.style.left = moveX + "px";
+      this.sport.style.top = moveY + "px";
+      e.preventDefault();
+    }
+    new Drag('sport', 'wrap');
+  </script>
+</body>
+</html>
 ```
