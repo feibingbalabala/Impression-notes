@@ -26,7 +26,7 @@
 <style type="text/css">
   .container {
     width: 960x;
-    maring: 60px auto;
+    margin: 60px auto;
   }
   .container ul {
     float: left;
@@ -55,6 +55,7 @@
   </div>
 </body>
 <script type="text/javascript">
+// 一定要引入jquery
 // var a = document.getElementsByTagName(li);
 function loadMeinv() {
   var data = 0;
