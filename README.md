@@ -22,6 +22,8 @@
 
 [css3属性](./note/CSS3属性/README.md)
 
+[CSS3效果-正方体](./note/CSS3效果-正方体/README.md)
+
 [css技巧-三角形](./note/css技巧-三角形/README.md)
 
 [js初探](./note/JS初探/README.md)
