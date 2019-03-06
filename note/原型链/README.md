@@ -119,3 +119,140 @@ demo2.showInfo();
 ```
 
 ![输出](./images/image3.png)
+
+## 触壁反弹
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .wrap {
+      position: relative;
+      width: 800px;
+      height: 400px;
+      margin: 50px auto;
+      border: 1px solid #f00;
+    }
+    .wrap div {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="main">
+  </div>
+  <script>
+    function Bounce(ParentId){
+      var _this = this;
+      this.main = document.getElementById(ParentId);
+      this.box = document.createElement('div');
+      this.main.appendChild(this.box);
+      this.posX = Math.ceil(Math.random()*600+50);
+      this.posY = Math.ceil(Math.random()*300+50);
+      this.speed = 1;
+      this.moveX = true;
+      this.moveY = true;
+      this.pos();
+      this.timer = setInterval(function(){
+        _this.move();
+      }, 16);
+    }
+    /*
+      * JS页面初始化 浮动块的位置
+      */
+    Bounce.prototype.pos = function(){		
+      this.box.style.top = this.posY + "px";
+      this.box.style.left = this.posX + "px";
+    }
+    /*
+      * 功能：通过对left和top的修改，实现运动
+      * 通过修改moveX和moveY控制运动的方向
+      * 碰壁反弹
+      */
+    Bounce.prototype.move = function(){
+      // 水平方向
+      if (this.moveX) {
+        this.posX += this.speed;
+        if (this.posX >= this.main.clientWidth - this.box.offsetWidth) {
+          this.moveX = false;
+        };
+      } else {
+        this.posX -= this.speed;
+        if (this.posX <= 0) {
+          this.moveX = true;
+        };
+      }
+
+      // 垂直方向
+      if (this.moveY) {
+        this.posY += this.speed;
+        if (this.posY >= this.main.clientHeight - this.box.offsetHeight) {
+          this.moveY = false;
+        };
+      } else {
+        this.posY -= this.speed;
+        if (this.posY <= 0) {
+          this.moveY = true;
+        };
+      }
+
+      this.rePos();
+    }
+
+    Bounce.prototype.rePos = function(){
+      // 赋值
+      this.box.style.left = this.posX + 'px';
+      this.box.style.top = this.posY + 'px';
+    }
+
+
+    // for (var i = 0; i < 10; i++) {
+    // 	var newBall = new Bounce('main');
+    // };
+
+
+    // 随机位置的球球 继承原有属性
+    function RanPosBall(ParentId){
+      Bounce.call(this, ParentId);
+      // 增加三种随机颜色
+      this.colorR = Math.round(Math.random()*255);
+      this.colorG = Math.round(Math.random()*255);
+      this.colorB = Math.round(Math.random()*255);
+      // 重写速度属性
+      this.speed = Math.round(Math.random()*3+1);
+      this.moveX =  Math.round(Math.random()*1);
+      this.moveY =  Math.round(Math.random()*1);
+      if (this.moveX == 1) {
+        this.moveX = true;
+      } else {
+        this.moveX = false;
+      }
+      if (this.moveY == 1) {
+        this.moveY = true;
+      } else {
+        this.moveY = false;
+      }
+      this.pos();
+    }
+    for(var i in Bounce.prototype) {
+      RanPosBall.prototype[i] = Bounce.prototype[i];
+    }
+    // 重写pos初始化方法，增加颜色变化
+    RanPosBall.prototype.pos = function(){
+      this.box.style.top = this.posY + "px";
+      this.box.style.left = this.posX + "px";
+      this.box.style.backgroundColor = "rgb(" + this.colorR + ", " + this.colorG + ", " + this.colorB + ")";
+      this.box.style.borderRadius = "50%";
+    }
+    for (var i = 0; i < 10; i++) {
+      var newBall = new RanPosBall('main');
+    };
+  </script>
+</body>
+</html>
+```
