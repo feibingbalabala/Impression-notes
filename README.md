@@ -26,6 +26,8 @@
 
 [css技巧-三角形](./note/css技巧-三角形/README.md)
 
+[css技巧-换列](./note/css技巧-换列/README.md)
+
 [js初探](./note/JS初探/README.md)
 
 [js初探2](./note/JS初探2/README.md)
