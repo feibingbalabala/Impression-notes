@@ -4,15 +4,15 @@
 
 1994 Netscape
 
-1995 LiveScript
-
-1995 JavaScript
+1995 JavaScript诞生
 
 ie浏览器：JScript Scriptease：CEnvi
 
-1997ECMAScript
+1997 ECMAScript标准确立
 
-ECMAScrpt5.0
+1999 ES3出现，与此同时ie5出现
+
+2009 ES5出现，例如foreach、object.keys、object.create和JSON标准。
 
 2015年6月ECMAScript6
 
