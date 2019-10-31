@@ -97,3 +97,5 @@
 [canvas-圆形绘制](./note/canvas-圆形绘制/README.md)
 
 [require.js](./note/require.js/README.md)
+
+[AMD、CMD、commonJs和ES6](./note/AMD、CMD、commonJs和ES6/README.md)
