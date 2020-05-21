@@ -99,3 +99,5 @@
 [require.js](./note/require.js/README.md)
 
 [AMD、CMD、commonJs和ES6](./note/AMD、CMD、commonJs和ES6/README.md)
+
+[Promise](./note/Promise/Promise.md)
